@@ -1,0 +1,13 @@
+withoutLogin{
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    flex-direction: row;
+    
+}
+withLogin{
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    flex-direction: row;
+}
