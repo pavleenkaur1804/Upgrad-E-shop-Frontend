@@ -48,14 +48,16 @@ const Login = () => {
                 // Here we are trying to understand if the user 
                 // is admin or a normal user 
                 if(res.data.userData.isAdmin===true){
+                    sessionStorage.setItem("AdminToken",res.data.userData.accessToken);
                     dispatch2({type:'ISADMINLOGGEDIN',payload:true})
                     navigate("/")
                     return;
                    
                 }
                else if(res.data.userData.isAdmin===false){
+                    sessionStorage.setItem("access-token",res.data.userData.accessToken);
                     dispatch({type:'ISLOGGEDIN',payload:true})
-                    navigate("/");
+navigate("/");
                     return;
                 }
                     

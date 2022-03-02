@@ -2,12 +2,14 @@ import logo from './logo.svg';
 import './App.css';
 import Signup from './common/signup/Signup'
 import Login from './common/login/Login'
-import { Routes, Route, } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Navbar from './common/navbar/Navbar';
 import Home from './components/home/Home'
-import { createContext, useReducer } from 'react'
+import { createContext, Fragment, useReducer, useState } from 'react'
 import { initialState, reducer } from "../src/common/reducer/UseReducer"
 import { adminState, reducer2 } from './common/reducer/AdminReducer';
+import Products from './components/products/Products';
+import {ProtectedRoute}  from './common/protectedRoute/ProtectedRoute';
 
 export const UserContext = createContext();
 // User Context helps in toggling the LOGIN/LOGOUT functionality and 
@@ -26,20 +28,33 @@ const App = () => {
   // This manages the state of the user "ISLOGGEDIN" throughout
   const [state2, dispatch2] = useReducer(reducer2, adminState);
   // This manages the state of the admin "ISADMINLOGGEDIN" throughout
-  
+ 
   return (
     <>
       <UserContext.Provider value={{ state, dispatch }}>
         <AdminContext.Provider value={{ state2, dispatch2 }}>
-
+<Fragment>
           {/* Navbar which is common for the entire app */}
           <Navbar />
           {/* Routes changing based on the requirement of the user/admin */}
           <Routes>
-            <Route path='/' element={<Home />}></Route>
+           
+            
+             
+            <Route exact path='/' element={<ProtectedRoute/>}>
+            <Route exact path='/' element={<Home/>}/>
+            
+          </Route>
+          
+            
+            
+            
             <Route path='/login' element={<Login />}></Route>
             <Route path='/signup' element={<Signup />}></Route>
+
+           
           </Routes>
+          </Fragment>
         </AdminContext.Provider>
       </UserContext.Provider>
     </>
